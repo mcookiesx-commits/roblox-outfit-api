@@ -9,29 +9,11 @@ app.get("/outfits/:userid", async (req, res) => {
 
     try {
 
-        const outfitsResponse = await axios.get(
-            `https://avatar.roblox.com/v1/users/${userId}/outfits?itemsPerPage=30`
+        const response = await axios.get(
+            `https://avatar.roblox.com/v1/users/${userId}/outfits?itemsPerPage=10`
         );
 
-        const outfits = outfitsResponse.data.data;
-
-        let fullOutfits = [];
-
-        for (const outfit of outfits) {
-
-            try {
-
-                const details = await axios.get(
-                    `https://avatar.roblox.com/v1/outfits/${outfit.id}/details`
-                );
-
-                fullOutfits.push(details.data);
-
-            } catch (e) {}
-
-        }
-
-        res.json(fullOutfits);
+        res.json(response.data.data);
 
     } catch (err) {
 
